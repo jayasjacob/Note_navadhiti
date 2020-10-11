@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}Notes{% endblock %}
+{#{% load humanize %}#}
+{% block content %}
+    <html>
+    <header>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </header>
+
+
+    <style>
+    .stretch-card>.card {
+    width: 100%;
+    min-width: 100%
+}
+
+body {
+    background-color: #f9f9fa
+}
+
+.flex {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto
+}
+
+@media (max-width:991.98px) {
+    .padding {
+        padding: 1.5rem
+    }
+}
+
+@media (max-width:767.98px) {
+    .padding {
+        padding: 1rem
+    }
+}
+
+.padding {
+    padding: 3rem !important
+}
+
+.card-sub {
+    cursor: move;
+    border: none;
+    -webkit-box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.05), 0 -2px 1px -2px rgba(0, 0, 0, 0.04), 0 0 0 -1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.05), 0 -2px 1px -2px rgba(0, 0, 0, 0.04), 0 0 0 -1px rgba(0, 0, 0, 0.05)
+}
+
+.card-img-top {
+    width: 100%;
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px)
+}
+
+.card-block {
+    padding: 1.25rem;
+    background-color: #fff !important
+}
+    </style>
+
+
+
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-sm-12">
+                <!-- Draggable default card start -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Your Notes</h5>
+                    </div>
+                     {% for note in all_notes %}
+                    <div class="card-block">
+                        <div class="row" id="sortable">
+                            <div class="col-lg-12 col-xl-3" style="">
+                                <div class="card-sub"> <img class="card-img-top img-fluid" src="https://images.macrumors.com/t/W_Pgu64j4JPsCYRfKYTiFYbHg1A=/800x0/filters:quality(90)/article-new/2018/10/notes-icon-ios-12-250x248.jpg?lossy" alt="Card image cap">
+                                    <div class="card-block">
+                                        <h4 class="card-title"><a href="{% url 'note_detail' note.slug %}">{{ note.note_title|truncatechars:30 }}</a></h4>
+                                        <p class="card-text"> <a class="open-modal" data-url="{% url 'note_details_edit' note.id %}" style="text-decoration: none; color: white" data-toggle="tooltip" title="Edit Note">
+                                    <span class="btn btn-primary" style="border-radius: 0;"><i class="far fa-edit"> </i></span>
+                                </a>     <a class="open-delete-modal" data-url="{% url 'confirm_delete_note' note.id %}" data-toggle="tooltip" title="Delete Note">
+                                    <span class="btn btn-danger" style="border-radius: 0;"><i class="far fa-trash-alt"></i></span>
+                                </a> </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                             {% endfor %}
+{#                            <div class="col-lg-12 col-xl-3" style="">#}
+{#                                <div class="card-sub"> <img class="card-img-top img-fluid" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1557925739/marek-levak-1591308-unsplash.jpg" alt="Card image cap">#}
+{#                                    <div class="card-block">#}
+{#                                        <h4 class="card-title">Product 2</h4>#}
+{#                                        <p class="card-text">For what reason would it be advisable for me to think about business content.</p>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="col-lg-12 col-xl-3" draggable="false" style="">#}
+{#                                <div class="card-sub"> <img class="card-img-top img-fluid" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1557925652/tomas-robertson-1594346-unsplash.jpg" alt="Card image cap" draggable="false">#}
+{#                                    <div class="card-block">#}
+{#                                        <h4 class="card-title">Product 3</h4>#}
+{#                                        <p class="card-text">For what reason would it be advisable for me to think about business content</p>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="col-lg-12 col-xl-3" style="">#}
+{#                                <div class="card-sub"> <img class="card-img-top img-fluid" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1557925606/chen-feng-1594580-unsplash.jpg" alt="Card image cap">#}
+{#                                    <div class="card-block">#}
+{#                                        <h4 class="card-title">Product 4</h4>#}
+{#                                        <p class="card-text">For what reason would it be advisable for me to think about business content</p>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+                        </div>
+                    </div>
+                </div> <!-- Draggable default card start -->
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+    $( document ).ready(function() {
+$("#sortable").sortable();
+$("#sortable").disableSelection();
+});
+    </script>
+      </html>
+
+{% endblock %}
